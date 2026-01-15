@@ -49,15 +49,15 @@ This project demonstrates end-to-end automation of credential dumping detection 
 - Applied custom `sysmonconfig.xml`
 - Enabled Event ID `1` (Process Creation)
 
-![1 - sysmon downloaded](./screenshots/1_sysmon_downloaded.png)  
-![2 - verified sysmon installation](./screenshots/2_verified_sysmon_installation.png)
+![1 - sysmon downloaded](./screenshots/1.png)  
+![2 - verified sysmon installation](./screenshots/2.png)
 
 **Verification:**
 - Confirmed Sysmon service status via PowerShell
 - Validated logs in Windows Event Viewer
 - Verified log forwarding to Wazuh
 
-![12 - Log path](./screenshots/12_Log_path.png)
+![12 - Log path](./screenshots/12.png)
 
 ---
 
@@ -69,19 +69,19 @@ This project demonstrates end-to-end automation of credential dumping detection 
 - Installed Wazuh Agent on Windows endpoint
 - Established secure agent-manager communication
 
-![3 - Wazhu installation](./screenshots/3_Wazhu_installation.png)  
-![4 - Wazhu Dashboard](./screenshots/4_Wazhu_Dashboard.png)  
-![9 - wazhu agent running](./screenshots/9_wazhu_agent_running.png)  
-![10 - Wazhu Dashboard Showing Active device](./screenshots/10_Wazhu_Dashboard_Showing_Active_device.png)
+![3 - Wazhu installation](./screenshots/3.png)  
+![4 - Wazhu Dashboard](./screenshots/4.png)  
+![9 - wazhu agent running](./screenshots/9.png)  
+![10 - Wazhu Dashboard Showing Active device](./screenshots/10.png)
 
 **Custom Detection Rule:**
 - **Rule ID:** 100002
 - **Trigger:** `mimikatz.exe` detected in Sysmon logs
 - **Severity Level:** 15
 
-![11 - sysmon configured for wazhu](./screenshots/11_sysmon_configured_for_wazhu.png)  
-![13 - sysmon loging into wazhu](./screenshots/13_sysmon_loging_into_wazhu.png)  
-![14 - Log every event](./screenshots/14_Log_every_event.png)
+![11 - sysmon configured for wazhu](./screenshots/11.png)  
+![13 - sysmon loging into wazhu](./screenshots/13.png)  
+![14 - Log every event](./screenshots/14.png)
 
 **MITRE Mapping:**
 - **T1003 – OS Credential Dumping**
@@ -95,8 +95,8 @@ This project demonstrates end-to-end automation of credential dumping detection 
 - Executed Mimikatz via PowerShell
 - Used filename deception to mimic real attacker behavior
 
-![15 - mimikatz name deception](./screenshots/15_mimikatz_name_deception.png)  
-![16 - Executed deception](./screenshots/16_Executed_deception.png)
+![15 - mimikatz name deception](./screenshots/15.png)  
+![16 - Executed deception](./screenshots/16.png)
 
 **Detection Result:**
 - Wazuh detected execution instantly
@@ -113,7 +113,7 @@ This project demonstrates end-to-end automation of credential dumping detection 
 - Parsed incoming JSON alert payload
 - Extracted SHA256 hash of detected binary
 
-![17 - shuffler integration](./screenshots/17_shuffler_integration.png)
+![17 - shuffler integration](./screenshots/17.png)
 
 **Automation Steps:**
 1. Receive Wazuh alert
@@ -131,7 +131,7 @@ This project demonstrates end-to-end automation of credential dumping detection 
 - VirusTotal API integrated into Shuffle workflow
 - Queried extracted SHA256 hash automatically
 
-![18 - virusTotal integrated](./screenshots/18_virusTotal_integrated.png)
+![18 - virusTotal integrated](./screenshots/18.png)
 
 **Results:**
 - API Status: `200 OK`
@@ -148,22 +148,22 @@ This project demonstrates end-to-end automation of credential dumping detection 
 - Elasticsearch
 - TheHive
 
-![5 - cassandra running](./screenshots/5_cassandra_running.png)  
-![6 - Elastic search running](./screenshots/6_Elastic_search_running.png)  
-![7 - TheHive running](./screenshots/7_TheHive_running.png)  
-![8 - TheHive Login page](./screenshots/8_TheHive_Login_page.png)
+![5 - cassandra running](./screenshots/5.png)  
+![6 - Elastic search running](./screenshots/6.png)  
+![7 - TheHive running](./screenshots/7.png)  
+![8 - TheHive Login page](./screenshots/8.png)
 
 **Automated Case Creation:**
 - Shuffle pushed enriched alert data to TheHive
 - Included host details, detection rule, hash, and VirusTotal verdict
 
-![19 - TheHive - deception detected](./screenshots/19_TheHive_deception_detected.png)
+![19 - TheHive - deception detected](./screenshots/19.png)
 
 **Case Status:**
 - Status: **New**
 - Ready for analyst investigation
 
-![20 - TheHive- Further information](./screenshots/20_TheHive_Further_information.png)
+![20 - TheHive- Further information](./screenshots/20.png)
 
 ---
 
