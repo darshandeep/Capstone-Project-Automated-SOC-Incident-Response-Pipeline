@@ -72,7 +72,7 @@ This project demonstrates end-to-end automation of credential dumping detection 
 ![3 - Wazhu installation](./screenshots/3.png)  
 ![4 - Wazhu Dashboard](./screenshots/4.png)  
 ![9 - wazhu agent running](./screenshots/9.png)  
-![10 - Wazhu Dashboard Showing Active device](./Screenshots/10.png)
+![10 - Wazhu Dashboard Showing Active device](./screenshots/10.png)
 
 **Custom Detection Rule:**
 - **Rule ID:** 100002
