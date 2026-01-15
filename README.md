@@ -1,5 +1,4 @@
 # 🛡️ Capstone Project – Automated SOC Incident Response Pipeline
-
 Automated detection-to-triage SOC pipeline using **Wazuh**, **Shuffle SOAR**, **VirusTotal**, and **TheHive**.  
 This project demonstrates end-to-end automation of credential dumping detection (**MITRE ATT&CK T1003**) with real-time enrichment and incident creation, reducing MTTR from ~10 minutes to **<1 second**.
 
@@ -19,20 +18,15 @@ This project demonstrates end-to-end automation of credential dumping detection 
 ---
 
 ## 1. Lab Overview
+**Objective:** Design and implement a fully automated SOC Incident Response pipeline that detects credential dumping activity, enriches alerts with threat intelligence, and generates investigation-ready incidents automatically.
 
-**Objective:**  
-Design and implement a fully automated SOC Incident Response pipeline that detects credential dumping activity, enriches alerts with threat intelligence, and generates investigation-ready incidents automatically.
+**Problem Statement:** Manual endpoint alert triage increases Mean Time To Respond (MTTR) and causes alert fatigue for Tier-1 SOC analysts.
 
-**Problem Statement:**  
-Manual endpoint alert triage increases Mean Time To Respond (MTTR) and causes alert fatigue for Tier-1 SOC analysts.
-
-**Solution:**  
-A SOAR-driven workflow that automates detection, enrichment, and incident creation without human intervention.
+**Solution:** A SOAR-driven workflow that automates detection, enrichment, and incident creation without human intervention.
 
 ---
 
 ## 2. Infrastructure & Architecture
-
 **Local / On-Premises:**
 - Windows 10 Endpoint (Victim)
 - Wazuh Manager (Ubuntu 24.04 LTS)
@@ -45,86 +39,81 @@ A SOAR-driven workflow that automates detection, enrichment, and incident creati
 **Architecture Flow:**
 
 
-
-
-
-
-
-
-
 ---
 
 ## 3. Endpoint Monitoring (Sysmon)
-
-**Objective:**  
-Capture detailed Windows process creation events for malicious execution detection.
+**Objective:** Capture detailed Windows process creation events for malicious execution detection.
 
 **Implementation:**
 - Installed `Sysmon64` on Windows 10 endpoint
 - Applied custom `sysmonconfig.xml`
 - Enabled Event ID `1` (Process Creation)
 
+![1 - sysmon downloaded](./screenshots/1_sysmon_downloaded.png)  
+![2 - verified sysmon installation](./screenshots/2_verified_sysmon_installation.png)
+
 **Verification:**
 - Confirmed Sysmon service status via PowerShell
 - Validated logs in Windows Event Viewer
 - Verified log forwarding to Wazuh
 
-![Sysmon Installation](./screenshots/1-sysmon-downloded.png)  
-![Sysmon Log Path](image_url)
+![12 - Log path](./screenshots/12_Log_path.png)
 
 ---
 
 ## 4. SIEM Deployment (Wazuh)
-
-**Objective:**  
-Centralize endpoint telemetry and detect adversary techniques.
+**Objective:** Centralize endpoint telemetry and detect adversary techniques.
 
 **Implementation:**
 - Deployed Wazuh Manager on Ubuntu 24.04
 - Installed Wazuh Agent on Windows endpoint
 - Established secure agent-manager communication
 
+![3 - Wazhu installation](./screenshots/3_Wazhu_installation.png)  
+![4 - Wazhu Dashboard](./screenshots/4_Wazhu_Dashboard.png)  
+![9 - wazhu agent running](./screenshots/9_wazhu_agent_running.png)  
+![10 - Wazhu Dashboard Showing Active device](./screenshots/10_Wazhu_Dashboard_Showing_Active_device.png)
+
 **Custom Detection Rule:**
 - **Rule ID:** 100002
 - **Trigger:** `mimikatz.exe` detected in Sysmon logs
 - **Severity Level:** 15
 
+![11 - sysmon configured for wazhu](./screenshots/11_sysmon_configured_for_wazhu.png)  
+![13 - sysmon loging into wazhu](./screenshots/13_sysmon_loging_into_wazhu.png)  
+![14 - Log every event](./screenshots/14_Log_every_event.png)
+
 **MITRE Mapping:**
 - **T1003 – OS Credential Dumping**
-
-![Wazuh Dashboard](image_url)  
-![Custom Rule](image_url)
 
 ---
 
 ## 5. Attack Simulation – Mimikatz Execution
-
-**Objective:**  
-Simulate a credential dumping attack to validate the pipeline.
+**Objective:** Simulate a credential dumping attack to validate the pipeline.
 
 **Execution:**
 - Executed Mimikatz via PowerShell
 - Used filename deception to mimic real attacker behavior
+
+![15 - mimikatz name deception](./screenshots/15_mimikatz_name_deception.png)  
+![16 - Executed deception](./screenshots/16_Executed_deception.png)
 
 **Detection Result:**
 - Wazuh detected execution instantly
 - Triggered high-severity alert
 - Alert forwarded to SOAR automatically
 
-![Mimikatz Execution](image_url)  
-![Wazuh Alert](image_url)
-
 ---
 
 ## 6. SOAR Orchestration (Shuffle)
-
-**Objective:**  
-Automate alert ingestion, parsing, and enrichment.
+**Objective:** Automate alert ingestion, parsing, and enrichment.
 
 **Workflow:**
 - Configured Wazuh webhook integration
 - Parsed incoming JSON alert payload
 - Extracted SHA256 hash of detected binary
+
+![17 - shuffler integration](./screenshots/17_shuffler_integration.png)
 
 **Automation Steps:**
 1. Receive Wazuh alert
@@ -133,55 +122,60 @@ Automate alert ingestion, parsing, and enrichment.
 4. Enrich IOC
 5. Create incident
 
-![Shuffle Workflow](image_url)
-
 ---
 
 ## 7. Threat Intelligence Enrichment (VirusTotal)
-
-**Objective:**  
-Validate detected artifacts using external threat intelligence.
+**Objective:** Validate detected artifacts using external threat intelligence.
 
 **Integration:**
 - VirusTotal API integrated into Shuffle workflow
 - Queried extracted SHA256 hash automatically
+
+![18 - virusTotal integrated](./screenshots/18_virusTotal_integrated.png)
 
 **Results:**
 - API Status: `200 OK`
 - File identified as **malicious**
 - Reputation data appended to incident
 
-![VirusTotal Enrichment](image_url)
-
 ---
 
 ## 8. Incident Management (TheHive)
-
-**Objective:**  
-Centralize enriched alerts into investigation-ready cases.
+**Objective:** Centralize enriched alerts into investigation-ready cases.
 
 **Deployment:**
 - Cassandra
 - Elasticsearch
 - TheHive
 
+![5 - cassandra running](./screenshots/5_cassandra_running.png)  
+![6 - Elastic search running](./screenshots/6_Elastic_search_running.png)  
+![7 - TheHive running](./screenshots/7_TheHive_running.png)  
+![8 - TheHive Login page](./screenshots/8_TheHive_Login_page.png)
+
 **Automated Case Creation:**
 - Shuffle pushed enriched alert data to TheHive
 - Included host details, detection rule, hash, and VirusTotal verdict
+
+![19 - TheHive - deception detected](./screenshots/19_TheHive_deception_detected.png)
 
 **Case Status:**
 - Status: **New**
 - Ready for analyst investigation
 
-![TheHive Case](image_url)
+![20 - TheHive- Further information](./screenshots/20_TheHive_Further_information.png)
 
 ---
 
 ## 9. Summary & MTTR Metrics
-
 **Key Outcomes:**
 - MTTR reduced from ~10 minutes to **<1 second**
 - Manual Tier-1 triage eliminated
 - Fully automated SOC response pipeline
 
-
+| Metric | Manual Triage | Automated Pipeline |
+| :--- | :--- | :--- |
+| **Detection Time** | ~1-2 Minutes | **Instant** |
+| **IOC Enrichment** | ~5-10 Minutes | **< 1 Second** |
+| **Ticket Creation** | ~3-5 Minutes | **Automated** |
+| **Total MTTR** | **~15 Minutes** | **< 2 Seconds** |
