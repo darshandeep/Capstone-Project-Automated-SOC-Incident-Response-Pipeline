@@ -69,7 +69,7 @@ Capture detailed Windows process creation events for malicious execution detecti
 - Validated logs in Windows Event Viewer
 - Verified log forwarding to Wazuh
 
-![Sysmon Installation](Screenshots/1 sysmon downloded.png)  
+![Sysmon Installation](./screenshots/1-sysmon-downloded.png)  
 ![Sysmon Log Path](image_url)
 
 ---
