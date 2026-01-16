@@ -50,7 +50,7 @@ This project demonstrates end-to-end automation of credential dumping detection 
 - Enabled Event ID `1` (Process Creation)
 
 ![1 - sysmon downloaded](./screenshots/1.png)  
-![2 - verified sysmon installation](./screenshots/2.png)
+![2 - verified sysmon installation](./screenshots/12.png)
 
 **Verification:**
 - Confirmed Sysmon service status via PowerShell
