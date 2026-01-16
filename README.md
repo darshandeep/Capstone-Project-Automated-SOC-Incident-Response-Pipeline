@@ -27,18 +27,16 @@ This project demonstrates end-to-end automation of credential dumping detection 
 ---
 
 ## 2. Infrastructure & Architecture
-**Local / On-Premises:**
+**Cloud / SaaS Services:**
 - Windows 10 Endpoint (Victim)
 - Wazuh Manager (Ubuntu 24.04 LTS)
-
-**Cloud / SaaS Services:**
 - Shuffle.io (SOAR)
 - VirusTotal (Threat Intelligence)
 - TheHive (Incident Management)
 
 **Architecture Flow:**
 
-
+![21 - flow](./screenshots/21.png)  
 ---
 
 ## 3. Endpoint Monitoring (Sysmon)
@@ -46,10 +44,10 @@ This project demonstrates end-to-end automation of credential dumping detection 
 
 **Implementation:**
 - Installed `Sysmon64` on Windows 10 endpoint
+- ![1 - sysmon downloaded](./screenshots/1.png)  
 - Applied custom `sysmonconfig.xml`
 - Enabled Event ID `1` (Process Creation)
 
-![1 - sysmon downloaded](./screenshots/1.png)  
 ![2 - verified sysmon installation](./screenshots/2.png)
 
 **Verification:**
@@ -66,12 +64,12 @@ This project demonstrates end-to-end automation of credential dumping detection 
 
 **Implementation:**
 - Deployed Wazuh Manager on Ubuntu 24.04
-- Installed Wazuh Agent on Windows endpoint
-- Established secure agent-manager communication
-
 ![3 - Wazhu installation](./screenshots/3.png)  
 ![4 - Wazhu Dashboard](./screenshots/4.png)  
-![9 - wazhu agent running](./screenshots/9.png)  
+- Installed Wazuh Agent on Windows endpoint
+- ![9 - wazhu agent running](./screenshots/9.png)  
+- Established secure agent-manager communication
+
 ![10 - Wazhu Dashboard Showing Active device](./screenshots/10.png)
 
 **Custom Detection Rule:**
@@ -83,8 +81,6 @@ This project demonstrates end-to-end automation of credential dumping detection 
 ![13 - sysmon loging into wazhu](./screenshots/13.png)  
 ![14 - Log every event](./screenshots/14.png)
 
-**MITRE Mapping:**
-- **T1003 – OS Credential Dumping**
 
 ---
 
@@ -96,9 +92,10 @@ This project demonstrates end-to-end automation of credential dumping detection 
 - Used filename deception to mimic real attacker behavior
 
 ![15 - mimikatz name deception](./screenshots/15.png)  
-![16 - Executed deception](./screenshots/16.png)
+
 
 **Detection Result:**
+![16 - Executed deception](./screenshots/16.png)
 - Wazuh detected execution instantly
 - Triggered high-severity alert
 - Alert forwarded to SOAR automatically
@@ -144,12 +141,11 @@ This project demonstrates end-to-end automation of credential dumping detection 
 **Objective:** Centralize enriched alerts into investigation-ready cases.
 
 **Deployment:**
-- Cassandra
+- Cassandra ![5 - cassandra running](./screenshots/5.png)  
 - Elasticsearch
+- ![6 - Elastic search running](./screenshots/6.png)  
 - TheHive
 
-![5 - cassandra running](./screenshots/5.png)  
-![6 - Elastic search running](./screenshots/6.png)  
 ![7 - TheHive running](./screenshots/7.png)  
 ![8 - TheHive Login page](./screenshots/8.png)
 
